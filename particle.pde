@@ -84,7 +84,7 @@ public class Particle {
      velocity.mult(0.9);
   }
   
-  public void draw (boolean hovered, boolean selected, boolean drawRange) {
+  public void draw (boolean hovered, boolean selected) {
     fill(0);
     
     // translate to the center
@@ -129,9 +129,9 @@ public class Particle {
     circle(0, 0, radius*2f);
     
     // draw the attraction
-    if (drawRange) {
-      //stroke(255, 0, 0, 50);
-      //circle(0, 0, radius*8f);
+    if (drawAttractionRange) {
+      stroke(255, 0, 0, 50);
+      circle(0, 0, radius*config.attractionRange*2);
     }
     
     // we draw the velocity 
