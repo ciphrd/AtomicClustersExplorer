@@ -30,6 +30,23 @@ class Toolbar {
     size = getToolbarSize();
   }
   
+  private void setActiveUIFromToolbarID (int id) {
+    switch (id) {
+      case 0:
+        activeUI = 3;
+        break;
+      case 1:
+        activeUI = 5;
+        break;
+      case 2:
+        activeUI = 6;
+        break;
+      default:
+        activeUI = 0;
+        break;
+    }
+  }
+  
   PVector getCircleCoord (int idx) {
     return new PVector(
       width - TOOLBAR_ITEM_WIDTH / 2 - TOOLBAR_BORDER_MARGIN - (TOOLBAR_ITEM_WIDTH + TOOLBAR_BORDER_MARGIN)*idx,
@@ -53,7 +70,8 @@ class Toolbar {
   
   void mousePressed () {
     if (hovered != -1) {
-      active = active == hovered ? -1 : hovered; 
+      active = active == hovered ? -1 : hovered;
+      setActiveUIFromToolbarID(active);
     }
   }
   
@@ -62,13 +80,14 @@ class Toolbar {
     hovered = -1;
     
     // at first we detect if the mouse is in the toolbar
-    if (activeUI < 2 && mouse.x > width - size.x && mouse.y > height - size.y) {
-      activeUI = 2;
+    if (activeUIEvents < 2 && mouse.x > width - size.x && mouse.y > height - size.y) {
+      activeUIEvents = 2;
       // here we can test if the mouse is inside an item
       for (int i = 0; i < icons.length; i++) {
         PVector coord = getCircleCoord(i);
         if (mouse.copy().sub(coord).mag() <= TOOLBAR_ITEM_WIDTH/2 + 2) {
           hovered = i;
+          break;
         }
       }
     }

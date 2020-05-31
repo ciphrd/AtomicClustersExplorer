@@ -5,7 +5,7 @@
 
 
 // the number of particles at the start of the simulation
-int NB_PARTICLES_START = 30;
+int NB_PARTICLES_START = 60;
 
 class ParticlesManager {
   public Particle[] particles;
@@ -16,8 +16,8 @@ class ParticlesManager {
     // initialize the particles
     for (int i = 0; i < particles.length; i++) {
       particles[i] = new Particle(
-        random(312) + 100, //random(400.0)+312,
-        random(312) + 100, //random(400.0)+312,
+        random(312) + (width-312)/2, //random(400.0)+312,
+        random(312) + (height-312)/2, //random(400.0)+312,
         random(PI*2f),
         0.5,  // mass
         P_RADIUS,  // radius
@@ -33,6 +33,12 @@ class ParticlesManager {
     
     pushMatrix();
     translate(camera.x, camera.y);
+    
+    boolean divideComputations = particles.length > 200;
+    int half = int(particles.length * .5);
+    int modf = frameCount % 2;
+    int jStart = divideComputations ? modf*half : 0;
+    int jEnd = divideComputations ? half + half*modf : particles.length;
   
     for (int i = 0; i < particles.length; i++) {
 
@@ -114,7 +120,7 @@ class ParticlesManager {
        } // end pause block
        
        // now the tests for the tooling
-       if (mouse.y > 80 && activeUI == 0) {
+       if (mouse.y > 80 && activeUIEvents == 0) {
          float dmouse = particles[i].position.copy().sub(mouseT).mag();
          boolean in = dmouse < particles[i].radius;
          if (in) {
@@ -129,6 +135,8 @@ class ParticlesManager {
     } 
     
     popMatrix();
+    
+    println(particles.length, frameRate);
   }
   
   public void applyCollisions () {
@@ -173,7 +181,7 @@ class ParticlesManager {
         particles[i].update();
         particles[i].friction();
       }
-      particles[i].draw(hovered == i, selected == i);
+      particles[i].draw(hovered == i, selected == i, true, true);
     }
     
     popMatrix();

@@ -1,6 +1,23 @@
 /**
  * Easy way to have sort of a global accessible config
  **/
+ 
+// ui config
+int UI_PADDING = 7;
+int[][] CHARGE_COLORS = new int[][]{
+  new int[]{ 255, 0, 0 },
+  new int[]{ 0, 0, 255 },
+  new int[]{ 0, 255, 0 },
+  new int[]{ 255, 255, 0 },
+  new int[]{ 0, 255, 255 },
+  new int[]{ 255, 0, 255 },
+  new int[]{ 0, 128, 255 },
+  new int[]{ 80, 255, 128 },
+};
+
+// sim config
+int MAX_CHARGES = 8; // maximum types of subatomic charges allowed
+
 
 class Config {
   public float maxSpeed = 5.0;

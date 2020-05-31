@@ -104,12 +104,12 @@ class SlidersPanel {
   public void update () {
     drawAttractionRange = false;
     
-    if (toolbar.active == 0) {
+    if (activeUI == 3) {
       hovered = -1;
       
       // check if the mouse is over the panel first
-      if (activeUI < 3 && mouse.x > position.x && mouse.y > position.y && mouse.y < position.y + panelHeight) {
-        activeUI = 3;
+      if (activeUIEvents < 3 && mouse.x > position.x && mouse.y > position.y && mouse.y < position.y + panelHeight) {
+        activeUIEvents = 3;
         
         // now we can check if the mouse is inside a slider
         for (int i = 0; i < SLIDERS_TEXT.length; i++) {
@@ -121,6 +121,7 @@ class SlidersPanel {
           if (mouse.x > containerPos.x && mouse.x < containerPos.x + sliderSize.x 
             && mouse.y > containerPos.y + sliderSize.y && mouse.y < containerPos.y + 2 * sliderSize.y) {
             hovered = i;
+            break;
           }
         }
       }
@@ -140,7 +141,7 @@ class SlidersPanel {
   }
   
   public void draw () {
-    if (toolbar.active == 0) {
+    if (activeUI == 3) {
       fill(0, 0, 0, 180);
       stroke(255, 255, 255, 120);
       rect(position.x, position.y, SLIDERS_PANEL_WIDTH, panelHeight);

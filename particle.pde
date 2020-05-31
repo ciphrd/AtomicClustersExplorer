@@ -5,27 +5,7 @@ float attrDistCenter = 0.6f;
 
 
 int[] getColorFromType (int type) {
-  int[] col = new int[3];
-  
-  switch (type) {
-    case 0:
-      col[0] = 255; col[1] = 0; col[2] = 0;
-      break;
-    case 1:
-      col[0] = 0; col[1] = 0; col[2] = 255;
-      break;
-    case 2:
-      col[0] = 0; col[1] = 255; col[2] = 0;
-      break;
-    case 3:
-      col[0] = 255; col[1] = 255; col[2] = 0;
-      break;
-    case 4:
-      col[0] = 0; col[1] = 255; col[2] = 255;
-      break;
-  }
-  
-  return col;
+  return CHARGE_COLORS[type];
 }
 
 public class Particle {
@@ -84,8 +64,8 @@ public class Particle {
      velocity.mult(0.9);
   }
   
-  public void draw (boolean hovered, boolean selected) {
-    fill(0);
+  public void draw (boolean hovered, boolean selected, boolean drawRange, boolean drawForces) {
+    noFill();
     
     // translate to the center
     pushMatrix();
@@ -129,13 +109,13 @@ public class Particle {
     circle(0, 0, radius*2f);
     
     // draw the attraction
-    if (drawAttractionRange) {
+    if (drawAttractionRange && drawRange) {
       stroke(255, 0, 0, 50);
       circle(0, 0, radius*config.attractionRange*2);
     }
     
     // we draw the velocity 
-    if (selected) drawVector(velocity.copy().normalize().mult(50), 0, 0, new int[]{255, 255, 0});
+    if (selected && drawForces) drawVector(velocity.copy().div(config.maxSpeed).mult(10), 0, 0, new int[]{255, 255, 0});
     
     popMatrix();
   }
