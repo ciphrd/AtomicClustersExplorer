@@ -135,8 +135,6 @@ class ParticlesManager {
     } 
     
     popMatrix();
-    
-    println(particles.length, frameRate);
   }
   
   public void applyCollisions () {

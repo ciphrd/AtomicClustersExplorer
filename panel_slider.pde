@@ -4,8 +4,8 @@
  
 boolean drawAttractionRange = false;
 
-int SLIDERS_PANEL_WIDTH = 200;
-int SLIDER_HEIGHT = 40;
+int SLIDERS_PANEL_WIDTH = 250;
+int SLIDER_HEIGHT = 45;
 int SLIDER_PADDING = 5;
 
 

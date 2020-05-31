@@ -10,8 +10,12 @@ class ParticleAttractors {
   float deltaAngle; // the angle distance between the points
   
   public ParticleAttractors (int[] _types) {
-    nb = _types.length;
     types = _types;
+    update();
+  }
+  
+  public void update () {
+    nb = types.length;
     deltaAngle = TWO_PI / nb;
   }
   

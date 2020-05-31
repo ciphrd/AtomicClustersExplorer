@@ -43,4 +43,14 @@ class AttractorsManager {
     if (t2 == 0 && t1 == nbTypes-1) return true;
     return abs(t1-t2) == 1;
   }
+  
+  public void addAttractor (ParticleAttractors pa) {
+    ParticleAttractors[] pas2 = new ParticleAttractors[attractors.length+1]; 
+    for (int i = 0; i < attractors.length; i++) {
+      pas2[i] = attractors[i]; 
+    }
+    pas2[attractors.length] = pa;
+    attractors = pas2;
+    atomsUI.updateDisplayParticles();
+  }
 }

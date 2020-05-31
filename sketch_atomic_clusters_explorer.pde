@@ -11,7 +11,7 @@
  * The architecture of this software is... approximative. Let's say it serves it purpose: just a fun
  * tool to see how the system works and what can be done with it.
  *
- * TODO: zoom
+ * TODO: zoom (des push matrix consécustifs)
  **/
 
 import java.util.Map;
@@ -26,6 +26,7 @@ AtomsUI atomsUI;
 Toolbar toolbar;
 SlidersPanel slidersPanel;
 ChargesPanel chargesPanel;
+PanelAtoms panelAtoms;
 
 
 // so the events works in "cascade"
@@ -73,12 +74,13 @@ void setup () {
   toolbar = new Toolbar();
   slidersPanel = new SlidersPanel();
   chargesPanel = new ChargesPanel();
+  panelAtoms = new PanelAtoms();
   
   
   // we setup the UI struff
   pauseImg = loadImage("pause.png");
   PFont PTsans;
-  PTsans = createFont("PTSerif-Regular.ttf", 32);
+  PTsans = createFont("RobotoMono-Regular.ttf", 32);
   textFont(PTsans, 18);
   
   size(1280, 720); 
@@ -115,6 +117,7 @@ void draw () {
 
 void handleEvents () {
   // we need to execute this in the right order, from front in UI to back
+  panelAtoms.update();
   chargesPanel.update();
   slidersPanel.update();
   toolbar.update();
@@ -147,6 +150,7 @@ void drawUI () {
   toolbar.draw();
   slidersPanel.draw();
   chargesPanel.draw();
+  panelAtoms.draw();
   if (paused) image(pauseImg, 15, height - 45, 32, 32);
 }
 
@@ -172,6 +176,7 @@ void mousePressed () {
   chargesPanel.mousePressed();
   toolbar.mousePressed();
   atomsUI.mousePressed();
+  panelAtoms.mousePressed();
   
   if (mouseButton == RIGHT && moved == -1) {
     moved = hovered;

@@ -1,5 +1,5 @@
 /**
- * UI Layer ID: 5
+ * UI Layer ID: 4
  * Can edit the number of charges of the universe
  *
  * Could be reworked into sub classes but hey
@@ -7,7 +7,7 @@
 
 
 int CHARGES_PANEL_WIDTH = 400;
-int CHARGES_PANEL_HEIGHT = 80;
+int CHARGES_PANEL_HEIGHT = 100;
 int CHARGES_PANEL_C_RADIUS = 25;
 int CHARGES_PANEL_PADDING = 25;
 
@@ -31,7 +31,7 @@ class ChargesPanel {
   private void drawCharge (int idx) {
     PVector center = new PVector(
       chargeWidth * idx + CHARGES_PANEL_PADDING + CHARGES_PANEL_C_RADIUS/2,
-      48
+      68
     );
     int[] col = getColorFromType(idx);
     fill(col[0], col[1], col[2]);
@@ -44,7 +44,7 @@ class ChargesPanel {
     noFill();
     rect(
       10,
-      25,
+      45,
       chargeWidth * nb + 5,
       45
     );
@@ -52,11 +52,11 @@ class ChargesPanel {
 
   public void update () {
     hovered = -1;
-    if (activeUI == 5) {
+    if (activeUI == 4) {
       // at first we detect if the mouse is in the toolbar
-      if (activeUIEvents < 5 && mouse.x > position.x && mouse.x < position.x + CHARGES_PANEL_WIDTH
+      if (activeUIEvents < 4 && mouse.x > position.x && mouse.x < position.x + CHARGES_PANEL_WIDTH
         && mouse.y > position.y && mouse.y < position.y + CHARGES_PANEL_HEIGHT) {
-        activeUIEvents = 5;
+        activeUIEvents = 4;
         
         // we try fo find which one is hovered
         PVector pos = new PVector();
@@ -64,7 +64,7 @@ class ChargesPanel {
           fill(255, 0, 0);
           pos.set(
             position.x + i * chargeWidth + 14,
-            position.y + 25
+            position.y + 45
           );
           if (mouse.x > pos.x && mouse.x < pos.x + chargeWidth +1 && mouse.y > pos.y && mouse.y < pos.y + 45) {
             hovered = i;
@@ -76,7 +76,7 @@ class ChargesPanel {
   }
 
   public void draw () {
-    if (activeUI == 5) { // if it is selected in the menu 
+    if (activeUI == 4) { // if it is selected in the menu 
       pushMatrix();
       translate(position.x, position.y);
       
@@ -87,7 +87,8 @@ class ChargesPanel {
 
       fill(255);
       textAlign(LEFT, TOP);
-      text("Subatomic particles - set the number available in this universe", UI_PADDING, 3);
+      text("Subatomic particles\nSet the number available in this universe", UI_PADDING, 3);
+      
       for (int i = 0; i < MAX_CHARGES; i++) {
         drawCharge(i); 
       }
@@ -100,7 +101,7 @@ class ChargesPanel {
   }
   
   public void mousePressed () {
-    if (activeUI == 5 && hovered != -1) { 
+    if (activeUIEvents == 4 && hovered != -1) { 
       attractorsManager.nbTypes = hovered + 1;
     }
   }

@@ -12,8 +12,12 @@ class AtomsUI {
   boolean subatomHovered;
   
   public AtomsUI () {
-    particles = createParticlesFromAttractors();
+    updateDisplayParticles();
     selected = -1;
+  }
+  
+  public void updateDisplayParticles () {
+    particles = createParticlesFromAttractors();
   }
   
   private Particle[] createParticlesFromAttractors () {
@@ -64,7 +68,7 @@ class AtomsUI {
       if (hovered != -1) {
         selected = hovered;
       } else if (subatomHovered) {
-        activeUI = activeUI != 5 ? 5 : 0; 
+        activeUI = activeUI != 4 ? 4 : 0; 
       }
     }
   }
@@ -91,13 +95,13 @@ class AtomsUI {
     textAlign(LEFT, BOTTOM);
     text("Possible configurations", 10, ATOMS_BAR_HEIGHT - 3);
     textAlign(RIGHT, BOTTOM);
-    if (activeUI == 5) {
+    if (activeUI == 4) {
       fill(0, 255, 0);
     }
     text("Subatomic particles", width - 10, ATOMS_BAR_HEIGHT - 3);
     
     // atoms types
-    if (activeUI == 5) {
+    if (activeUI == 4) {
       stroke(0, 255, 0);
     } else if (subatomHovered) {
       stroke(255, 255, 0);

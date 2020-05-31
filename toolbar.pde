@@ -15,6 +15,16 @@ int TOOLBAR_ITEM_WIDTH = 32;
 int TOOLBAR_MARGIN_ITEMS = 7;
 int TOOLBAR_BORDER_MARGIN = 10;
 
+// mapping of idx => ui layer id
+int[] TOOLBAR_LAYER_ID_MAP = new int[]{ 3, 5, 6 };
+
+String[] TOOLBAR_INFOTEXT = new String[]{
+  "Simulation settings",
+  "Create a new atom",
+  "Keyboard shortcuts"
+};
+
+
 class Toolbar {
   public int active;
   public PVector size;
@@ -28,23 +38,6 @@ class Toolbar {
     icons = new PImage[]{ slidersImg, atomsImg, keyboardImg };
     active = -1;
     size = getToolbarSize();
-  }
-  
-  private void setActiveUIFromToolbarID (int id) {
-    switch (id) {
-      case 0:
-        activeUI = 3;
-        break;
-      case 1:
-        activeUI = 5;
-        break;
-      case 2:
-        activeUI = 6;
-        break;
-      default:
-        activeUI = 0;
-        break;
-    }
   }
   
   PVector getCircleCoord (int idx) {
@@ -70,8 +63,7 @@ class Toolbar {
   
   void mousePressed () {
     if (hovered != -1) {
-      active = active == hovered ? -1 : hovered;
-      setActiveUIFromToolbarID(active);
+      activeUI = activeUI == TOOLBAR_LAYER_ID_MAP[hovered] ? -1 : TOOLBAR_LAYER_ID_MAP[hovered];
     }
   }
   
@@ -100,11 +92,19 @@ class Toolbar {
     stroke(255, 255, 255, 120);
     rect(width - size.x, height - size.y, size.x, size.y);
     
+    if (hovered != -1) {
+      fill(255);
+      textAlign(RIGHT, BOTTOM);
+      text(TOOLBAR_INFOTEXT[hovered], width - UI_PADDING, height - size.y - 3);
+    }
+    
+    strokeWeight(2);
+    noFill();
     for (int i = 0; i < icons.length; i++) {
       PVector coord = getCircleCoord(i);
       
       // we set the color based on the state of the item
-      if (active == i) stroke(0, 255, 0, 180);
+      if (TOOLBAR_LAYER_ID_MAP[i] == activeUI) stroke(0, 255, 0, 180);
       else if (hovered == i) stroke(255, 255, 0, 180);
       else stroke(255, 255, 255, 180);
       
