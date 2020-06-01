@@ -1,5 +1,10 @@
 # Atomic Clusters explorer [Processing]
 
+*This project was released under the MIT License*
+
+* Instagram: [https://instagram.com/ciphrd](https://instagram.com/ciphrd)
+* Blog: [https://ciphered.xyz](https://ciphered.xyz)
+
 Atomic Clusters is a particle-based simulation inspired by the work **Clusters** from *Jeffrey Ventrella*. I wrote [an article](https://ciphered.xyz/2020/06/01/atomic-clusters,-a-molecular-particle-based-simulation/) to describe both the system and its implementation on my blog. Feel free to check it out if you want an insight on this system.
 
 ![Atomic Clusters explorer demo](demo/tool-overview.gif)
