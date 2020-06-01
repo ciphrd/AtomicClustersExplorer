@@ -15,8 +15,6 @@
  **/
 
 import java.util.Map;
-import java.util.Arrays; 
-import java.lang.Object;
 
 
 
@@ -145,8 +143,9 @@ void drawUI () {
     textAlign(LEFT, BOTTOM);
     String fr = String.valueOf(frameRate);
     if (fr.length() > 4) fr = fr.substring(0, 4);
-    text(fr + " fps", UI_PADDING, height-UI_PADDING);
-    text(pManager.particles.length + " atoms", UI_PADDING, height-UI_PADDING-18);
+    text("v0.0.1", UI_PADDING, height-UI_PADDING);
+    text(fr + " fps", UI_PADDING, height-UI_PADDING-18);
+    text(pManager.particles.length + " atoms", UI_PADDING, height-UI_PADDING-36);
   }
 }
 
@@ -188,7 +187,7 @@ void mouseClicked () {
       selected = hovered;
     }
     if (hovered == -1 && atomsUI.selected != -1) {
-      pManager.addParticle(mouseX-camera.x, mouseY-camera.y, attractorsManager.attractors[atomsUI.selected]);
+      pManager.addParticle(worldMouse.x, worldMouse.y, attractorsManager.attractors[atomsUI.selected]);
     }
   }
 }

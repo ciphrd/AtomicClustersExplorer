@@ -13,7 +13,7 @@ class AtomsUI {
   
   public AtomsUI () {
     updateDisplayParticles();
-    selected = -1;
+    selected = 0;
   }
   
   public void updateDisplayParticles () {
