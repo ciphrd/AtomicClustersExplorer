@@ -16,6 +16,8 @@ String[] SLIDERS_TEXT = new String[]{
   "Col transfer energy",
   "Attraction strength",
   "RepulsionStrength",
+  "Friction",
+  "Spawn radius",
 };
 
 float[] SLIDERS_MINS = new float[]{
@@ -25,6 +27,8 @@ float[] SLIDERS_MINS = new float[]{
   0.0,      // collision transfer energy
   0.0,      // attraction strength,
   0.0,      // repulsion strength
+  0.0,      // friction
+  1,        // spawn radius
 };
 
 float[] SLIDERS_MAXS = new float[]{
@@ -34,6 +38,8 @@ float[] SLIDERS_MAXS = new float[]{
   1.2,      // collision transfer energy
   4.0,      // attraction strength
   4.0,      // repulsion strength
+  1.0,      // friction
+  50,       // spawn radius
 };
 
 
@@ -75,6 +81,12 @@ class SlidersPanel {
       case 5:  // repulsion strength
         config.repulsionStrength = value;
         break;
+      case 6:  // friction
+        config.friction = value;
+        break;
+      case 7:  // spawn radius
+        config.spawnRadius = value;
+        break;
     }
   }
   
@@ -96,6 +108,10 @@ class SlidersPanel {
         return config.attractionStrength;
       case 5:  // repulsion strength
         return config.repulsionStrength;
+      case 6:  // friction
+        return config.friction;
+      case 7:  // spawn radius
+        return config.spawnRadius;
     }
     
     return 0;

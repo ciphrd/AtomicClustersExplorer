@@ -20,25 +20,20 @@ class ParticlesManager {
         random(312) + (height-312)/2, //random(400.0)+312,
         random(PI*2f),
         0.5,  // mass
-        P_RADIUS,  // radius
+        config.spawnRadius,  // radius
         8, // magnetic force of the attraction points
         attractorsManager.attractors[floor(random(attractorsManager.attractors.length))]  // we give it a random ParticleAttractors
       ); 
     }
   }
   
-  public void computeVelocities () {
-    PVector mouse = new PVector(mouseX, mouseY);
-    PVector mouseT = mouse.copy().sub(camera);
-    
+  public void computeVelocities () {    
+    // the space transform to allow for pan/zoom
+    PVector pan = panZoomManager.getPan();
+    float scale = panZoomManager.getScale();
     pushMatrix();
-    translate(camera.x, camera.y);
-    
-    boolean divideComputations = particles.length > 200;
-    int half = int(particles.length * .5);
-    int modf = frameCount % 2;
-    int jStart = divideComputations ? modf*half : 0;
-    int jEnd = divideComputations ? half + half*modf : particles.length;
+    translate(pan.x, pan.y);
+    scale(scale);
   
     for (int i = 0; i < particles.length; i++) {
 
@@ -47,8 +42,8 @@ class ParticlesManager {
             if (i != j) {  // ignore self to self
               Particle p1 = particles[i];
               Particle p2 = particles[j];
-              
-              if (p1.position.copy().sub(p2.position).mag() < P_RADIUS * config.attractionRange) {
+             
+              if (p1.position.copy().sub(p2.position).mag() < p1.radius * config.attractionRange) {
               
                 // we go through the attraction points of the both particles
                 for (int ai = 0; ai < p1.attractors.nb; ai++) {
@@ -120,8 +115,8 @@ class ParticlesManager {
        } // end pause block
        
        // now the tests for the tooling
-       if (mouse.y > 80 && activeUIEvents == 0) {
-         float dmouse = particles[i].position.copy().sub(mouseT).mag();
+       if (mouse.y > 80 && activeUIEvents == 0 && hovered == -1) {
+         float dmouse = particles[i].position.copy().sub(worldMouse).mag();
          boolean in = dmouse < particles[i].radius;
          if (in) {
            hovered = i;
@@ -129,7 +124,7 @@ class ParticlesManager {
        }
        
        if (i == moved) {
-         particles[i].position.set(mouseT.x, mouseT.y);
+         particles[i].position.set(worldMouse.x, worldMouse.y);
          particles[i].velocity.mult(0);
        }
     } 
@@ -154,9 +149,9 @@ class ParticlesManager {
             
             // dirend is the vector between the particles center
             PVector vmove = dirend.copy().mult(din/* * particles[i].velocity.mag()*/);
-            if (vmove.mag() > maxCol) {
+            if (vmove.mag() > MAX_COL_RESPONSE) {
                vmove.normalize();
-               vmove.mult(maxCol);
+               vmove.mult(MAX_COL_RESPONSE);
             }
             particles[i].velocity.add(vmove);
             
@@ -170,8 +165,11 @@ class ParticlesManager {
   
   // updates the particles position and angle, and draws them
   public void update () {
+    // space transform to allow for pan / zoom
+    PVector pan = panZoomManager.getPan();
     pushMatrix();
-    translate(camera.x, camera.y);
+    translate(pan.x, pan.y);
+    scale(panZoomManager.getScale());
     
     // now we can update 
     for (int i = 0; i < particles.length; i++) {
@@ -195,7 +193,7 @@ class ParticlesManager {
       y,
       random(PI*2f),
       0.5,  // mass
-      P_RADIUS,  // radius
+      config.spawnRadius,  // radius
       8, // magnetic force of the attraction points
       attractors
     );

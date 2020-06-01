@@ -60,8 +60,8 @@ public class Particle {
   
   // applies the friction over the angular and linear velocity
   public void friction () {
-     angVelocity*= 0.9;
-     velocity.mult(0.9);
+     angVelocity*= 1 - config.friction;
+     velocity.mult(1 - config.friction);
   }
   
   public void draw (boolean hovered, boolean selected, boolean drawRange, boolean drawForces) {

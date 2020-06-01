@@ -106,20 +106,24 @@ class AtomsUI {
     } else if (subatomHovered) {
       stroke(255, 255, 0);
     } else {
-      stroke(255, 255, 255, 60);
+      stroke(100);
     }
     noFill();
-    circle(width - 35, 32, 40);
-    noStroke();
+    pushMatrix();
+    translate(width - 85, 34);
+    strokeWeight(3);
+    circle(0, 0, 40);
+    strokeWeight(1);
     float dAngle = TWO_PI / attractorsManager.nbTypes;
     for (int i = 0; i < attractorsManager.nbTypes; i++) {
       int[] col = getColorFromType(i);
       fill(col[0], col[1], col[2]);
       circle(
-        cos(-dAngle*i) * 20 + width - 35,
-        sin(-dAngle*i) * 20 + 32,
-        9
+        cos(-dAngle*i) * 20,
+        sin(-dAngle*i) * 20,
+        12
       );
     }
+    popMatrix();
   }
 }

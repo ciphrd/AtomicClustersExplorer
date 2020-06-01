@@ -301,7 +301,7 @@ class PanelAtoms {
   
   private void drawButton () {
     if (buttonHovered) {
-      fill(0, 255, 80);
+      fill(0, 200, 80);
     } else { 
       fill(0, 128, 50);
     }

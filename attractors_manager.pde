@@ -8,9 +8,9 @@ ParticleAttractors attrs1 = new ParticleAttractors(new int[]{ 0, 1 });
 ParticleAttractors attrs2 = new ParticleAttractors(new int[]{ 1, 2 });
 ParticleAttractors attrs3 = new ParticleAttractors(new int[]{ 2, 3 });
 ParticleAttractors attrs4 = new ParticleAttractors(new int[]{ 3, 0 });
-ParticleAttractors attrs5 = new ParticleAttractors(new int[]{ 0, 0, 0 });
+ParticleAttractors attrs5 = new ParticleAttractors(new int[]{ 0, 0, 2 });
 ParticleAttractors attrs6 = new ParticleAttractors(new int[]{ 1, 0, 0 });
-ParticleAttractors attrs7 = new ParticleAttractors(new int[]{ 2, 2, 2 });
+ParticleAttractors attrs7 = new ParticleAttractors(new int[]{ 2, 2, 1 });
 ParticleAttractors attrs8 = new ParticleAttractors(new int[]{ 3, 3 });
 
 ParticleAttractors[] defaultAttractors = new ParticleAttractors[]{ attrs1, attrs2, attrs3, attrs4, attrs5, attrs6, attrs7, attrs8 };

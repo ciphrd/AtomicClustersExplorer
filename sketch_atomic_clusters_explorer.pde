@@ -27,6 +27,9 @@ Toolbar toolbar;
 SlidersPanel slidersPanel;
 ChargesPanel chargesPanel;
 PanelAtoms panelAtoms;
+PanelKeyboard panelKeyboard;
+
+PanZoomController panZoomManager;
 
 
 // so the events works in "cascade"
@@ -46,21 +49,16 @@ PanelAtoms panelAtoms;
 int activeUI = 0;
 int activeUIEvents = 0;
 
-float P_RADIUS = 12;
-
-float maxSpeed = 5;  // max magnitude of the velocity vectors, it gets clamped if higher
-float maxCol = 8;    // max magnitude of the collisions response
-
 // to store informations used by the tooling
 int hovered = -1;
 int selected = -1;
 boolean paused = false;
 PImage pauseImg;
 int moved = -1;
-boolean dragging;
-PVector dragStart = new PVector(0,0);
-PVector lastDragPos = new PVector(0, 0);
+
+// useful global vars
 PVector mouse = new PVector();
+PVector worldMouse = new PVector();
 
 // the position of the camera
 PVector camera = new PVector(0, 0);
@@ -69,12 +67,15 @@ void setup () {
   attractorsManager = new AttractorsManager();
   pManager = new ParticlesManager();
   
+  panZoomManager = new PanZoomController(this);
+  
   // we create the UI components
   atomsUI = new AtomsUI();
   toolbar = new Toolbar();
   slidersPanel = new SlidersPanel();
   chargesPanel = new ChargesPanel();
   panelAtoms = new PanelAtoms();
+  panelKeyboard = new PanelKeyboard();
   
   
   // we setup the UI struff
@@ -95,6 +96,7 @@ void draw () {
   hovered = -1;
   
   mouse.set(mouseX, mouseY);
+  worldMouse = panZoomManager.screenToWorld(mouse);
   handleEvents();
   
   pManager.computeVelocities();
@@ -117,6 +119,7 @@ void draw () {
 
 void handleEvents () {
   // we need to execute this in the right order, from front in UI to back
+  panelKeyboard.update();
   panelAtoms.update();
   chargesPanel.update();
   slidersPanel.update();
@@ -124,23 +127,7 @@ void handleEvents () {
   atomsUI.update();
   
   if (keyPressed && key == 'a' && atomsUI.selected != -1) {
-    pManager.addParticle(mouseX-camera.x, mouseY-camera.y, attractorsManager.attractors[atomsUI.selected]);
-  }
-  
-  if (mouseButton == LEFT && activeUIEvents == 0) {
-    if (dragging) {
-      camera.add(mouse.copy().sub(lastDragPos));
-      lastDragPos = mouse.copy();
-    }
-    
-    // we handle the drag control
-    if (hovered == -1 && !dragging) {
-      dragging = true;
-      lastDragPos.set(mouseX, mouseY);
-      dragStart.set(mouseX, mouseY);
-    }
-  } else {
-     dragging = false; 
+    pManager.addParticle(worldMouse.x, worldMouse.y, attractorsManager.attractors[atomsUI.selected]);
   }
 }
 
@@ -151,7 +138,16 @@ void drawUI () {
   slidersPanel.draw();
   chargesPanel.draw();
   panelAtoms.draw();
+  panelKeyboard.draw();
   if (paused) image(pauseImg, 15, height - 45, 32, 32);
+  else {
+    fill(255);
+    textAlign(LEFT, BOTTOM);
+    String fr = String.valueOf(frameRate);
+    if (fr.length() > 4) fr = fr.substring(0, 4);
+    text(fr + " fps", UI_PADDING, height-UI_PADDING);
+    text(pManager.particles.length + " atoms", UI_PADDING, height-UI_PADDING-18);
+  }
 }
 
 
@@ -166,6 +162,9 @@ void keyPressed () {
   }
   if (key == ENTER) {
     pManager.reset();
+  }
+  if (key == 'd') {
+    selected = -1; 
   }
 }
 
@@ -188,12 +187,18 @@ void mouseClicked () {
     if (moved == -1) {
       selected = hovered;
     }
-    if (hovered == -1 && dragStart.sub(mouse).mag() == 0 && atomsUI.selected != -1) {
+    if (hovered == -1 && atomsUI.selected != -1) {
       pManager.addParticle(mouseX-camera.x, mouseY-camera.y, attractorsManager.attractors[atomsUI.selected]);
     }
   }
 }
 
+void mouseDragged () {
+  if (activeUIEvents == 0) {
+    panZoomManager.mouseDragged();
+  }
+}
+
 void mouseWheel (MouseEvent event) {
-  float c = event.getCount();
+  panZoomManager.mouseWheel(-event.getCount());
 }
