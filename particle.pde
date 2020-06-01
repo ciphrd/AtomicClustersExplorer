@@ -1,9 +1,4 @@
 
-
-// the distance of the attraction points to the center (times the radius)
-float attrDistCenter = 0.6f;
-
-
 int[] getColorFromType (int type) {
   return CHARGE_COLORS[type];
 }
@@ -44,8 +39,8 @@ public class Particle {
     float attrAngle = attractors.getAttractorAngle(idx);
     
     return new PVector(
-      cos(angle + attrAngle) * radius * attrDistCenter,
-      sin(angle + attrAngle) * radius * attrDistCenter
+      cos(angle + attrAngle) * radius * config.distanceCenter,
+      sin(angle + attrAngle) * radius * config.distanceCenter
     );
   }
   

@@ -3,10 +3,6 @@
  * computing the forces and updating
  **/
 
-
-// the number of particles at the start of the simulation
-int NB_PARTICLES_START = 60;
-
 class ParticlesManager {
   public Particle[] particles;
   
@@ -66,7 +62,7 @@ class ParticlesManager {
                       
                       // we compute the torque
                       float theta = atan2(F.y, F.x) + PI - (p1.angle + p1.attractors.getAttractorAngle(ai));
-                      float torq = (attrDistCenter * p1.radius) * F.mag() * sin(-theta);
+                      float torq = (config.distanceCenter * p1.radius) * F.mag() * sin(-theta);
                       
                       // from which we can find the angular momentum
                       float am = 2.0 * torq / (p1.mass*p1.radius*p1.radius);

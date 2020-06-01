@@ -16,6 +16,7 @@ int[][] CHARGE_COLORS = new int[][]{
 };
 
 // sim config
+int NB_PARTICLES_START = 30; // the number of particles at the start of the simulation
 int MAX_CHARGES = 8; // maximum types of subatomic charges allowed
 float MAX_COL_RESPONSE = 8;    // max magnitude of the collisions response
 
@@ -29,6 +30,7 @@ class Config {
   public float repulsionStrength = .3;
   public float friction = 0.1;
   public float spawnRadius = 12;
+  public float distanceCenter = 0.6;
 }
 
 Config config = new Config();

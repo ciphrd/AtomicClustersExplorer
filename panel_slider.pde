@@ -18,6 +18,7 @@ String[] SLIDERS_TEXT = new String[]{
   "RepulsionStrength",
   "Friction",
   "Spawn radius",
+  "Charges distance center",
 };
 
 float[] SLIDERS_MINS = new float[]{
@@ -29,6 +30,7 @@ float[] SLIDERS_MINS = new float[]{
   0.0,      // repulsion strength
   0.0,      // friction
   1,        // spawn radius
+  0,        // charges distance center
 };
 
 float[] SLIDERS_MAXS = new float[]{
@@ -40,6 +42,7 @@ float[] SLIDERS_MAXS = new float[]{
   4.0,      // repulsion strength
   1.0,      // friction
   50,       // spawn radius
+  1.5,      // charges distance center
 };
 
 
@@ -87,6 +90,9 @@ class SlidersPanel {
       case 7:  // spawn radius
         config.spawnRadius = value;
         break;
+      case 8:  // spawn radius
+        config.distanceCenter = value;
+        break;
     }
   }
   
@@ -112,6 +118,8 @@ class SlidersPanel {
         return config.friction;
       case 7:  // spawn radius
         return config.spawnRadius;
+      case 8:  // spawn radius
+        return config.distanceCenter;
     }
     
     return 0;
