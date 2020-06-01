@@ -8,11 +8,27 @@ This simulation is an attraction-repulsion system, where particles can have [0; 
 
 This tool was made to explore Atomic Clusters with more precision than just throwing random particles all arround. It is still under development and the code is not 100% clean. Like the UI architecture is garbage, but it was enough for this first version. There are also a lot of room for optimisation, especially when it comes to the particles interractions. This is my first project using Processing so if you want to improve this tool feel free to contribute. I made a quick video to explain how the tool works:
 
+## How to run
+
+* [Download Processing](https://processing.org/download/) and install it
+* Open the *sketch_atomic_clusters_explorer.pde* file with Processing 
+* Run
+
+## How to use
+
+* You can interact with the system by adding, deleting, rotating and moving particles
+* Adjust the simulation settings on the bottom right
+* **The list of controls can be seen by clicking on the keyboard icon of the bottom left toolbar**
+* New atoms can be created and added to the toolbar using available subatomic charges (colors)
+* The number of different subatomic charges can be modified by clicking on the top-right icon.
+
+## Exploration of Atomic Clusters with more particles
+
 I explored this system using compute shaders to have more particles, I posted some of my results on my instagram: [@ciphrd](https://instagram.com/ciphrd)
 
 ## Todo
 
-* refacto of some components - if this project gets bigger this will be required ahah
-* optimization
-* add interraction tools (such as mouse repelling particles)
+* refacto of some components - **required** before next update
+* optimization of particle-particle interactions
+* add interaction tools (such as mouse repelling particles, random particle spawn, eraser?)
 * selected particle should have more data displayed + a way to modify its settings
