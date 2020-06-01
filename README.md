@@ -13,12 +13,13 @@ This simulation is an attraction-repulsion system, where particles can have [0; 
 
 This tool was made to explore Atomic Clusters with more precision than just throwing random particles all arround. It is still under development and the code is not 100% clean. Like the UI architecture is garbage, but it was enough for this first version. There is also a lot of room for optimisation, especially when it comes to the particles interactions. This is my first project using Processing so if you want to improve this tool feel free to contribute. I made a quick video to explain how the tool works:
 
-[ADD VIDEO PRESENTATION]
+[![Link to the presentation of the tool](https://img.youtube.com/vi/2viKdYow9LM/0.jpg)](https://www.youtube.com/watch?v=2viKdYow9LM)
 
 ## How to run
 
 * [Download Processing](https://processing.org/download/) and install it
-* Open the *sketch_atomic_clusters_explorer.pde* file with Processing 
+* Clone this repo
+* Open the `sketch_atomic_clusters_explorer.pde` file with Processing 
 * Run
 
 ## How to use
