@@ -69,7 +69,7 @@ class ParticlesManager {
                       p1.angVelocity+= am;
                       
                       // now we update the translation motion
-                      PVector ca = p2.getAttrWPos(aj).sub(p1.position);
+                      PVector ca = p2.getAttrWPos(aj).sub(p1attr);
                       ca.normalize();
                       ca.mult(F.mag() - abs(F.mag() * sin(-theta)));
                       ca.mult(repelled ? -config.repulsionStrength : config.attractionStrength);
